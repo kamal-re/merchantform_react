@@ -16,6 +16,10 @@ class App extends React.Component {
     }
     this.resetForm();
   };
+  function(event) {
+    var image = document.getElementById("output");
+    image.src = URL.createObjectURL(event.target.files[0]);
+  }
   radiobutton = () => {
     var ele = document.getElementsByName("type");
     var val;
@@ -61,6 +65,7 @@ class App extends React.Component {
     }
     return val;
   };
+
   readFormData = () => {
     var formData = {};
     formData["name"] = document.getElementById("name").value;
@@ -114,12 +119,17 @@ class App extends React.Component {
     var cell12 = newRow.insertCell(11);
     cell12.innerHTML = retrievedData.activefrom;
     var cell13 = newRow.insertCell(12);
-    cell13.innerHTML = retrievedData.criticalaccount;
+    cell13.innerHTML = retrievedData.logo;
     var cell14 = newRow.insertCell(13);
-    cell14.innerHTML = retrievedData.paymentoptions;
+    cell14.innerHTML = retrievedData.criticalaccount;
     var cell15 = newRow.insertCell(14);
-    cell15.innerHTML = `<a onclick=onEdit(this)>Edit</a>
-                          <a onclick=onDelete(this)>Delete</a>`;
+    cell15.innerHTML = retrievedData.paymentoptions;
+    var cell16 = newRow.insertCell(15);
+    cell16.innerHTML = (
+      <button id="edit" onClick={this.onEdit}>
+        <p>EDIT</p>
+      </button>
+    );
   };
 
   resetForm = () => {
@@ -147,10 +157,11 @@ class App extends React.Component {
       selectedRow.cells[10].innerHTML;
     document.getElementById("activefrom").value =
       selectedRow.cells[11].innerHTML;
+    document.getElementById("logo").value = selectedRow.cells[12].innerHTML;
     document.getElementsByName("criticalaccount").value =
-      selectedRow.cells[12].innerHTML;
-    document.getElementsByName("paymentoptions").value =
       selectedRow.cells[13].innerHTML;
+    document.getElementsByName("paymentoptions").value =
+      selectedRow.cells[14].innerHTML;
   }
   updateRecord = (formData) => {
     var selectedRow = null;
@@ -166,8 +177,9 @@ class App extends React.Component {
     selectedRow.cells[9].innerHTML = formData.category;
     selectedRow.cells[10].innerHTML = formData.commissionpercentage;
     selectedRow.cells[11].innerHTML = formData.activefrom;
-    selectedRow.cells[12].innerHTML = formData.criticalaccount;
-    selectedRow.cells[13].innerHTML = formData.paymentoptions;
+    selectedRow.cells[12].innerHTML = formData.logo;
+    selectedRow.cells[13].innerHTML = formData.criticalaccount;
+    selectedRow.cells[14].innerHTML = formData.paymentoptions;
   };
 
   onDelete(td) {
@@ -211,7 +223,7 @@ class App extends React.Component {
               id="phone"
               name="phone"
               placeholder="Your Phone no"
-              maxlength="10"
+              maxLength="10"
               required
             />
             <br />
@@ -242,7 +254,7 @@ class App extends React.Component {
               id="contactphone"
               name="contactphone"
               placeholder="Your contactphone"
-              maxlength="10"
+              maxLength="10"
               required
             />
             <br />
@@ -284,19 +296,19 @@ class App extends React.Component {
             <br />
             <select id="category" name="category" multiple>
               <option value="clothes" name="category">
-                <strong>Clothes</strong>
+                Clothes
               </option>
               <option value="toys" name="category">
-                <strong>Toys</strong>
+                Toys
               </option>
               <option value="groceries" name="category">
-                <strong>Groceries</strong>
+                Groceries
               </option>
               <option value="electronics" name="category">
-                <strong>Electronics</strong>
+                Electronics
               </option>
               <option value="digital" name="category">
-                <strong>Digital</strong>
+                Digital
               </option>
             </select>
             <br />
@@ -307,7 +319,7 @@ class App extends React.Component {
               id="commissionpercentage"
               name="commissionpercentage"
               placeholder="Your CommissionPercentage"
-              maxlength="3"
+              maxLength="3"
               required
             />
             <br />
@@ -321,7 +333,7 @@ class App extends React.Component {
               type="file"
               id="logo"
               name="logo"
-              onchange="imageFile(event)"
+              onChange="imageFile(event)"
               accept="image/png, image/jpeg"
               required
             />
@@ -388,4 +400,5 @@ class App extends React.Component {
     );
   }
 }
+
 export default App;
