@@ -88,7 +88,7 @@ class App extends React.Component {
     var retrievedData = JSON.parse(localStorage.getItem("merchantform"));
 
     var table = document.getElementById("merchantform");
-    var newRow = table.insert(table.length);
+    var newRow = table.insertRow(table.length);
     var cell1 = newRow.insertCell(0);
     cell1.innerHTML = retrievedData.name;
     var cell2 = newRow.insertCell(1);
