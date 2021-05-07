@@ -22,17 +22,9 @@ header {
 button {
   color: darkblue;
 }
-table,
-tr,
-th,
-tbody,
-td {
-  border-collapse: collapse;
-  border-collapse: separate;
-  border: 1px solid black;
-  width: 50px;
-  margin: 50px auto;
-  text-align: center;
+form {
+  display: flex;
+  justify-content: center;
 }
 
 option {
