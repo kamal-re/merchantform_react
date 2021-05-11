@@ -29,7 +29,7 @@ class App extends PureComponent {
     },
     users: [
       {
-        id: 0,
+        id: "",
         name: "",
         email: "",
         phone: "",
@@ -107,6 +107,7 @@ class App extends PureComponent {
   };
   onSubmit = (event) => {
     const {users, formState} = this.state;
+    localStorage.setItem("users", users);
     event.preventDefault();
     const name = event.target.querySelector("input[name='name']").value;
     const email = event.target.querySelector("input[name='email']").value;
@@ -135,6 +136,21 @@ class App extends PureComponent {
     const paymentoptions = event.target.querySelector(
       "input[name='paymentoptions']"
     ).value;
+    localStorage.setItem("merchantform", JSON.stringify(this.state.users));
+    window.localStorage.getItem("name");
+    window.localStorage.getItem("email");
+    window.localStorage.getItem("phone");
+    window.localStorage.getItem("website");
+    window.localStorage.getItem("contactname");
+    window.localStorage.getItem("contactphone");
+    window.localStorage.getItem("contactemail");
+    window.localStorage.getItem("notes");
+    window.localStorage.getItem("type");
+    window.localStorage.getItem("category");
+    window.localStorage.getItem("commisssionpercentage");
+    window.localStorage.getItem("activefrom");
+    window.localStorage.getItem("criticalaccount");
+    window.localStorage.getItem("paytmoptions");
 
     if (formState.mode === "submit") {
       this.setState({
@@ -205,7 +221,6 @@ class App extends PureComponent {
       users: [...users],
     });
   };
-
   render() {
     const {users, formState} = this.state;
     return (
@@ -267,11 +282,11 @@ const Table = ({users = [], updateUser, deleteUser}) => {
               <div className="column">{user.paymentoptions}</div>
               <div className="column">
                 <button className="icon" onClick={() => updateUser(key)}>
-                  <i class="far fa-edit" />
+                  <i className="far fa-edit" />
                 </button>
                 <button className="icon">
                   <i
-                    class="fas fa-user-minus"
+                    className="fas fa-user-minus"
                     onClick={() => deleteUser(key)}
                   />
                 </button>
@@ -287,7 +302,7 @@ const Table = ({users = [], updateUser, deleteUser}) => {
 const Field = ({label = "", name = "", value = "", onChange}) => {
   return (
     <div className="field">
-      <label htmlFOR={name}>{label}</label>
+      <label htmlFor={name}>{label}</label>
       <input type="text" name={name} value={value} onChange={onChange} />
     </div>
   );
@@ -295,7 +310,7 @@ const Field = ({label = "", name = "", value = "", onChange}) => {
 const Field3 = ({label = "", name = "", value = "", onChange}) => {
   return (
     <div className="field">
-      <label htmlFOR={name}>{label}</label>
+      <label htmlFor={name}>{label}</label>
       <input type="date" name={name} value={value} onChange={onChange} />
     </div>
   );
@@ -311,21 +326,22 @@ const Form = ({
   return (
     <form className="form" onSubmit={onSubmit}>
       <fieldset>
-        <header>New Business</header>
+        <header>
+          <center>New Business</center>
+        </header>
+        <br />
         <Field
           name="name"
           label="Name"
           value={formState.name}
           onChange={onChange}
         />
-        <br />
         <Field
           name="email"
           label="Email"
           value={formState.email}
           onChange={onChange}
         />
-        <br />
         <Field
           name="phone"
           label="Phone"
@@ -339,78 +355,63 @@ const Form = ({
           value={formState.website}
           onChange={onChange}
         />
-        <br />
         <Field
           name="contactname"
           label="Contactname"
           value={formState.contactname}
           onChange={onChange}
         />
-        <br />
         <Field
           name="contactphone"
           label="Contactphone"
           value={formState.contactphone}
           onChange={onChange}
         />
-        <br />
         <Field
           name="contactemail"
           label="Contactemail"
           value={formState.contactemail}
           onChange={onChange}
         />
-        <br />
         <Field
           name="notes"
           label="Notes"
           value={formState.notes}
           onChange={onChange}
         />
-        <br />
-        <label for="type">Type</label>
+        <label htmlFor="type">Type</label>
         <br></br>
         <input type="radio" id="type" name="type" value="smallbusiness" />
-        <label for="smallbusiness">Small Business</label>
-        <br />
+        <label htmlFor="smallbusiness">Small Business</label>
+        <br></br>
         <input type="radio" id="type" name="type" value="enterprise" />
-        <label for="enterprise">Enterprise</label>
-        <br />
+        <label htmlFor="enterprise">Enterprise</label>
+        <br></br>
         <input type="radio" id="type" name="type" value="entrepreneur" />
-        <label for="entrepreneur">Entrepreneur</label>
-        <br />
-        <br />
-        <label for="category">Category</label>
-        <select
-          multiple={true}
-          name="category"
-          value={formState.category}
-          onChange={handleSelectChange}
-        >
+        <label htmlFor="entrepreneur">Entrepreneur</label>
+        <br></br>
+        <label htmlFor="category">Category</label>
+        <select name="category" onChange={handleSelectChange} multiple={true}>
           <option value="Clothes">Clothes</option>
           <option value="Toys">Toys</option>
           <option value="Groceries">Groceries</option>
           <option value="Electronics">Electronics</option>
           <option value="Digital">Digital</option>
         </select>
-        <br />
-        <br />
         <Field
           name="commissionpercentage"
           label="Commissionpercentage"
           value={formState.commissionpercentage}
           onChange={onChange}
         />
-        <br />
         <Field3
           name="activefrom"
           label="Activefrom"
           value={formState.activefrom}
           onChange={onChange}
         />
-        <br />
-        <label for="criticalaccount">Critical Account</label>
-        <br />
+        <label htmlFor="criticalaccount">Critical Account</label>
+        <br></br>
         <input
           type="radio"
           id="criticalaccount"
@@ -418,8 +419,8 @@ const Form = ({
           value="yes"
           onChange={onChange}
         />
-        <label for="yes">Yes</label>
-        <br />
+        <label htmlFor="yes">Yes</label>
+        <br></br>
         <input
           type="radio"
           id="criticalaccount"
@@ -427,10 +428,11 @@ const Form = ({
           value="no"
           onChange={onChange}
         />
-        <label for="no">No</label>
-        <br />
-        <label for="paymentoptions">Payment Options</label>
-        <br />
+        <label htmlFor="no">No</label>
+        <br></br>
+
+        <label htmlFor="paymentoptions">Payment Options</label>
+        <br></br>
         <input
           type="checkbox"
           id="paymentoptions"
@@ -438,7 +440,7 @@ const Form = ({
           value="COD"
           onChange={handleSelectChange}
         />
-        <label for="COD">Cash on Delivery</label>
+        <label htmlFor="COD">Cash on Delivery</label>
         <br></br>
         <input
           type="checkbox"
@@ -447,8 +449,8 @@ const Form = ({
           value="UPI"
           onChange={handleSelectChange}
         />
-        <label for="UPI">UPI</label>
-        <br />
+        <label htmlFor="UPI">UPI</label>
+        <br></br>
         <input
           type="checkbox"
           id="paymentoptions"
@@ -456,8 +458,8 @@ const Form = ({
           value="CardPayment"
           onChange={handleSelectChange}
         />
-        <label for="cardpayment">Card payment</label>
-        <br />
+        <label htmlFor="cardpayment">Card payment</label>
+        <br></br>
       </fieldset>
       <button>{formState.mode}</button>
     </form>
