@@ -1,6 +1,6 @@
 import "./index.css";
 import React from "react";
-console.clear();
+
 const {PureComponent} = React;
 class App extends PureComponent {
   constructor(props) {
@@ -29,7 +29,7 @@ class App extends PureComponent {
     },
     users: [
       {
-        id: "",
+        id: "0",
         name: "",
         email: "",
         phone: "",
@@ -82,7 +82,7 @@ class App extends PureComponent {
   };
 
   handleSelectChange(e) {
-    var options = e.target.options;
+    var options = e.target.value;
     var value = [];
     for (var i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
@@ -136,22 +136,13 @@ class App extends PureComponent {
     const paymentoptions = event.target.querySelector(
       "input[name='paymentoptions']"
     ).value;
-    localStorage.setItem("merchantform", JSON.stringify(this.state.users));
-    window.localStorage.getItem("name");
-    window.localStorage.getItem("email");
-    window.localStorage.getItem("phone");
-    window.localStorage.getItem("website");
-    window.localStorage.getItem("contactname");
-    window.localStorage.getItem("contactphone");
-    window.localStorage.getItem("contactemail");
-    window.localStorage.getItem("notes");
-    window.localStorage.getItem("type");
-    window.localStorage.getItem("category");
-    window.localStorage.getItem("commisssionpercentage");
-    window.localStorage.getItem("activefrom");
-    window.localStorage.getItem("criticalaccount");
-    window.localStorage.getItem("paytmoptions");
-
+    const data = localStorage.setItem(
+      "merchantform",
+      JSON.stringify(this.state.users)
+    );
+    if (data) {
+      localStorage.getItem("merchantform", JSON.stringify(this.state.users));
+    }
     if (formState.mode === "submit") {
       this.setState({
         users: [
@@ -171,7 +162,6 @@ class App extends PureComponent {
             activefrom,
             criticalaccount,
             paymentoptions,
-            updating: false,
             id: this.state.users[this.state.users.length - 1].id + 1,
           },
         ],
@@ -327,7 +317,9 @@ const Form = ({
     <form className="form" onSubmit={onSubmit}>
       <fieldset>
         <header>
-          <center>New Business</center>
+          <center>
+            <strong>New Business</strong>
+          </center>
         </header>
         <br />
         <Field
