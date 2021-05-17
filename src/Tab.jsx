@@ -1,12 +1,20 @@
 import React, {useState, useEffect} from "react";
 import {Table, Tag} from "antd";
-
 export default function Tab() {
   const [Items, setItems] = useState([]);
   useEffect(() => {
     const data = localStorage.getItem("data");
-    if (data) setItems(JSON.parse(data));
+
+    if (data) {
+      setItems(JSON.parse(data));
+    }
   }, []);
+
+  useEffect(() => {
+    const data = localStorage.getItem("data");
+    localStorage.setItem("data", JSON.stringify(data));
+  });
+
   const columns = [
     {
       title: "Name",
@@ -91,6 +99,7 @@ export default function Tab() {
       key: "paymentoptions",
     },
   ];
+
   return (
     <Table
       columns={columns}

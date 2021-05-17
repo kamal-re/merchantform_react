@@ -403,7 +403,7 @@ function App() {
           ]}
         ></Form.Item>
 
-        <label for="category">Category</label>
+        <label>Category</label>
         <select
           id="category"
           name="category"

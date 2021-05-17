@@ -5,11 +5,11 @@ const Nav = () => {
   return (
     <>
       <title>Merchant Form</title>
-      <div class="header">
-        <NavLink aria-current="page" to="/" class="logo">
+      <div className="header">
+        <NavLink aria-current="page" to="/" className="logo">
           NewBusiness
         </NavLink>
-        <div class="header-right">
+        <div className="header-right">
           <NavLink className="nav-link" aria-current="page" to="/">
             Home
           </NavLink>
